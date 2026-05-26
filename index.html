@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布吉之旅 🌴</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 隱藏捲動條但保留捲動功能 */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* 避免 pre-line 失效 */
+        .whitespace-pre-line {
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
+
+    <!-- Header / Hero Section -->
+    <div class="relative h-72 md:h-96 w-full object-cover bg-teal-900 overflow-hidden shadow-lg">
+        <img 
+            src="https://drive.google.com/thumbnail?id=106Ko7VsJFkl-WbqQQ8Hn2BXKmqnDH0cs&sz=w2000" 
+            alt="Phuket Trip Banner" 
+            class="absolute inset-0 w-full h-full object-cover opacity-70 mix-blend-overlay"
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=2000';"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-teal-900/90 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full p-6 md:p-12">
+            <div class="flex items-center space-x-2 text-teal-100 mb-2">
+                <i data-lucide="palmtree" class="w-6 h-6"></i>
+                <span class="font-medium tracking-wider">PHUKET TRIP</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-3 shadow-sm">
+                布吉之旅 🌴
+            </h1>
+            <div class="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 text-white text-sm md:text-base font-medium">
+                <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
+                8月22日 - 8月26日
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="sticky top-0 z-50 bg-white shadow-md overflow-x-auto">
+        <div class="flex w-full max-w-4xl mx-auto px-2" id="tab-buttons">
+            <!-- 按鈕由 JS 生成 -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="max-w-4xl mx-auto p-4 md:p-8 relative">
+        
+        <!-- TAB 1: 航班與人員 -->
+        <div id="tab-overview" class="fade-in hidden">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <h2 class="text-2xl font-bold text-teal-900 mb-6 flex items-center">
+                    <i data-lucide="users" class="w-6 h-6 mr-3 text-teal-500"></i>
+                    參加人員與航班資訊
+                </h2>
+                <div id="flights-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+        </div>
+
+        <!-- TAB 2: 住宿與包車 -->
+        <div id="tab-villa" class="space-y-6 fade-in hidden">
+            <!-- Villa Info -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-1 bg-slate-100" id="villa-images-container">
+                    <!-- Villa 圖片 -->
+                </div>
+                <div class="p-6 md:p-8">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="text-2xl font-bold text-teal-900">邦濤海灘 8臥室泳池別墅</h2>
+                        <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Airbnb</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-slate-50 p-4 rounded-xl text-center">
+                            <i data-lucide="home" class="w-6 h-6 mx-auto mb-2 text-teal-500"></i>
+                            <div class="font-bold text-lg">8間</div>
+                            <div class="text-xs text-slate-500">臥室 (8.5衛)</div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl text-center">
+                            <i data-lucide="users" class="w-6 h-6 mx-auto mb-2 text-teal-500"></i>
+                            <div class="font-bold text-lg">16-20人</div>
+                            <div class="text-xs text-slate-500">可容納人數</div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl text-center">
+                            <i data-lucide="sun" class="w-6 h-6 mx-auto mb-2 text-teal-500"></i>
+                            <div class="font-bold text-lg">20x15m</div>
+                            <div class="text-xs text-slate-500">超大私人泳池</div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl text-center">
+                            <i data-lucide="map-pin" class="w-6 h-6 mx-auto mb-2 text-teal-500"></i>
+                            <div class="font-bold text-lg">4分鐘</div>
+                            <div class="text-xs text-slate-500">車程至商圈</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-lg border-b pb-2">別墅服務與費用</h3>
+                        <ul class="space-y-3 text-slate-600">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-[18px] h-[18px] mr-2 text-teal-500 mt-0.5 shrink-0"></i>
+                                <span><strong>總價：</strong> $10,895.91 HKD</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-[18px] h-[18px] mr-2 text-teal-500 mt-0.5 shrink-0"></i>
+                                <span><strong>電費：</strong> 每晚大約 1000-2000 泰銖 (約 HKD 200-400)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-[18px] h-[18px] mr-2 text-teal-500 mt-0.5 shrink-0"></i>
+                                <span><strong>服務：</strong> 配備全職女傭 (基礎英語)、每日免費清潔、可加折疊床。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-[18px] h-[18px] mr-2 text-teal-500 mt-0.5 shrink-0"></i>
+                                <span><strong>廚師服務：</strong> 需提前24小時預定。食材實報實銷，每次服務費 500泰銖 (HKD 120)。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="map-pin" class="w-[18px] h-[18px] mr-2 text-teal-500 mt-0.5 shrink-0"></i>
+                                <a href="https://maps.app.goo.gl/NRPLZzczjchicddW9?g_st=com.google.maps.preview.copy" target="_blank" rel="noreferrer" class="text-blue-500 hover:underline">
+                                    在 Google Maps 上查看位置
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Villa Map Info -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+                <h2 class="text-2xl font-bold text-teal-900 mb-6 flex items-center">
+                    <i data-lucide="map-pin" class="w-6 h-6 mr-3 text-teal-500"></i>
+                    Villa 地理位置圖
+                </h2>
+                <div class="rounded-xl overflow-hidden border border-slate-100 bg-slate-50 flex justify-center">
+                    <img 
+                        src="https://drive.google.com/thumbnail?id=14PmUci8-32WHck3VEmZiSrkDncoKOMNT&sz=w1200" 
+                        alt="Villa Location Map" 
+                        class="w-full max-w-2xl h-auto object-contain"
+                        onerror="this.style.display='none';"
+                    />
+                </div>
+            </div>
+
+            <!-- Transport Info -->
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+                <h2 class="text-2xl font-bold text-teal-900 mb-6 flex items-center">
+                    <i data-lucide="car" class="w-6 h-6 mr-3 text-teal-500"></i>
+                    包車資訊
+                </h2>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <img 
+                        src="https://drive.google.com/thumbnail?id=1yVIKlK0SjtP-7kfoRTH0uWhhfyQaFX23&sz=w1200" 
+                        alt="Van" 
+                        class="w-full md:w-1/3 rounded-xl object-cover h-48"
+                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1549315535-c3359d33fbfa?auto=format&fit=crop&q=80&w=400';"
+                    />
+                    <div class="space-y-4 flex-1">
+                        <ul class="space-y-3 text-slate-600">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-[18px] h-[18px] mr-2 text-teal-500 mt-0.5 shrink-0"></i>
+                                <span><strong>車輛：</strong> 共兩架舒適 10-12 座保姆車</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-[18px] h-[18px] mr-2 text-teal-500 mt-0.5 shrink-0"></i>
+                                <span><strong>價錢：</strong> RMB 750 / 架 (10小時)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="info" class="w-[18px] h-[18px] mr-2 text-amber-500 mt-0.5 shrink-0"></i>
+                                <span><strong>超時收費：</strong> 如超過10小時，超時費為 200泰銖/小時 (直接付給司機，不足1小時按1小時算)。從預定用車時間開始算。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: 每日行程 -->
+        <div id="tab-itinerary" class="hidden fade-in">
+            <div id="itinerary-container" class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-teal-200 before:to-transparent">
+                <!-- 行程由 JS 生成 -->
+            </div>
+        </div>
+
+        <!-- TAB 4: 推薦餐廳 -->
+        <div id="tab-food" class="hidden fade-in">
+             <div id="food-container"></div>
+        </div>
+
+        <!-- TAB: 免費景點 -->
+        <div id="tab-attractions" class="hidden fade-in">
+             <div id="attractions-container"></div>
+        </div>
+
+        <!-- TAB: 付費活動 -->
+        <div id="tab-paid_activities" class="hidden fade-in">
+             <div id="paid-activities-container"></div>
+        </div>
+
+        <!-- TAB 5: 私廚菜單 -->
+        <div id="tab-menu" class="hidden fade-in">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-serif text-teal-900 mb-2">Private Chef Menu</h2>
+                    <p class="text-slate-500">別墅專屬私廚特製菜單</p>
+                    <div class="w-16 h-1 bg-teal-500 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- 私廚餐點圖集 -->
+                <div id="menu-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-12">
+                    <!-- 圖集由 JS 生成 -->
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Breakfast -->
+                    <div>
+                        <h3 class="text-xl font-bold text-teal-800 border-b-2 border-teal-100 pb-2 mb-4 flex items-center">
+                            <i data-lucide="sun" class="w-5 h-5 mr-2"></i> 推薦早餐 Breakfast
+                        </h3>
+                        <ul class="space-y-4 text-sm text-slate-700">
+                            <li><strong>JUICE / FRUITS:</strong> 熱帶果汁/橙汁、時令水果拼盤</li>
+                            <li><strong>MAINS 主菜:</strong>
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-slate-600">
+                                    <li>煎/煮/炒雞蛋配培根/火腿/香腸</li>
+                                    <li>鬆餅配蜂蜜/牛油果醬</li>
+                                    <li>泰式雞肉/豬肉/鮮蝦炒麵或炒飯</li>
+                                    <li>泰式粥品 (雞/豬/蝦)</li>
+                                    <li>泰式煎蛋配茉莉香米</li>
+                                </ul>
+                            </li>
+                            <li><strong>SIDES / YOGHURT:</strong> 吐司、牛角包、香蕉鬆餅、低脂酸奶麥片</li>
+                            <li><strong>DRINKS:</strong> 咖啡、茶</li>
+                        </ul>
+                    </div>
+
+                    <!-- Western -->
+                    <div>
+                        <h3 class="text-xl font-bold text-teal-800 border-b-2 border-teal-100 pb-2 mb-4 flex items-center">
+                            <i data-lucide="utensils" class="w-5 h-5 mr-2"></i> 西式無麩質食譜 Western Gluten Free
+                        </h3>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li><strong>SURF AND TURF COMBO:</strong> 虎王大蝦、芭蕉葉烤魚、安格斯沙朗牛排等組合</li>
+                            <li><strong>SALADS:</strong> 經典凱撒沙拉、希臘式沙拉、卡普雷塞沙拉 (Caprese)</li>
+                            <li><strong>MAINS:</strong> 
+                                <ul class="list-disc pl-5 mt-1 space-y-1 text-slate-600">
+                                    <li>意式甜菜根燴飯</li>
+                                    <li>深海三文魚 (配炒蘆筍與奶油)</li>
+                                    <li>烤雞胸肉 (配烤乾酪茄盒)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Thai Mains -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-xl font-bold text-teal-800 border-b-2 border-teal-100 pb-2 mb-4">主菜 Thai Mains</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-slate-700">
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🦐 粉絲蝦 (Shrimp with Glass Noodles)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🍖 椒鹽蒜味豬排 (Pork Ribs with Garlic)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🍤 羅望子醬炒蝦 (Prawn with Tamarind)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🌶️ 泰式紅燒魚 (Fried Fish with Chili Sauce)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🍋 酸辣蒸全魚 (Steamed Fish Garlic & Lime)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🥦 清炒綜合蔬菜 (Stir Fried Mixed Veggies)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🥬 炒空心菜 (Stir Fried Morning Glory)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🐟 醬香蒸全魚 (Steamed Fish with Soya Sauce)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🦀 紅咖哩炒蟹 (Crab with Curry Powder)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🍍 糖醋肉/魚 (Sweet & Sour)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🥩 蠔油牛肉 (Beef with Oyster Sauce)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🥜 腰果雞丁 (Chicken with Cashew Nuts)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🌿 香葉打拋肉 (Pad Krapao)</div>
+                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">🥓 甘藍炒脆皮燒肉 (Crispy Pork with Kale)</div>
+                        </div>
+                    </div>
+
+                    <!-- BBQ -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-xl font-bold text-teal-800 border-b-2 border-teal-100 pb-2 mb-4">燒烤 BBQ</h3>
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex-1 bg-orange-50 p-4 rounded-xl border border-orange-100 text-center">
+                                <div class="text-2xl mb-2">🐟</div>
+                                <div class="font-bold text-orange-900">蕉葉烤鯛魚</div>
+                                <div class="text-xs text-orange-700 mt-1">Grilled Snapper</div>
+                            </div>
+                            <div class="flex-1 bg-orange-50 p-4 rounded-xl border border-orange-100 text-center">
+                                <div class="text-2xl mb-2">🦐</div>
+                                <div class="font-bold text-orange-900">泰式醬汁烤大蝦</div>
+                                <div class="text-xs text-orange-700 mt-1">King Prawns</div>
+                            </div>
+                            <div class="flex-1 bg-orange-50 p-4 rounded-xl border border-orange-100 text-center">
+                                <div class="text-2xl mb-2">🥩</div>
+                                <div class="font-bold text-orange-900">烤豬排</div>
+                                <div class="text-xs text-orange-700 mt-1">Spare Ribs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Data & Application Logic -->
+    <script>
+        // --- Data ---
+        const TABS = [
+            { id: 'overview', label: '航班與人員', icon: 'users' },
+            { id: 'villa', label: '住宿與包車', icon: 'home' },
+            { id: 'itinerary', label: '每日行程', icon: 'calendar' },
+            { id: 'food', label: '推薦餐廳', icon: 'map-pin' },
+            { id: 'attractions', label: '免費景點', icon: 'camera' },
+            { id: 'paid_activities', label: '付費活動', icon: 'ticket' },
+            { id: 'menu', label: '私廚菜單', icon: 'utensils' },
+        ];
+
+        const FLIGHTS = [
+            { title: "8月22日 (四) - 第一批抵達", flight: "07:55 - 10:30 (UO724)", people: "棋、卿、卿妹、黃詩澄、老豆、慧堅、小微 (共8人)", icon: "plane", color: "bg-blue-100 text-blue-700" },
+            { title: "8月23日 (五) - 第二批抵達", flight: "07:55 - 10:30 (UO724)", people: "明仔、Kim、匡承、姐姐 (共5人)", icon: "plane", color: "bg-indigo-100 text-indigo-700" },
+            { title: "8月25日 (日) - 小微提早回程", flight: "09:00 前往機場", people: "小微", icon: "plane", color: "bg-orange-100 text-orange-700" },
+            { title: "8月26日 (一) - 大隊回程", flight: "17:00 前往機場 (19:00 - 00:00 UO795)", people: "棋、卿、卿妹、黃詩澄、老豆、慧堅 (等共7人)", icon: "plane", color: "bg-teal-100 text-teal-700" }
+        ];
+
+        const ITINERARY = [
+            {
+                day: "Day 1", date: "8月22日 (星期四)", title: "第一批抵達、物資採買與巴東夜生活",
+                events: [
+                    { time: "11:00", desc: "抵達布吉機場，辦理入境與拿行李" },
+                    { time: "12:00", desc: "午餐：Kin Dee Restaurant (米芝蓮必比登) - 隱身紅樹林旁的傳統泰南菜" },
+                    { time: "13:30", desc: "大型超市採購 (Lotus's Thalang 或 Big C) - 買啤酒、零食、水" },
+                    { time: "15:30", desc: "抵達 Villa Check-in & 休息" },
+                    { time: "18:00", desc: "晚餐：巴東市區平價海鮮/泰菜 (Savoey Seafood 或 No.6 Restaurant)" },
+                    { time: "19:30", desc: "按摩：60分鐘泰式/腳底按摩 (De Flora Spa 或 Let's Relax)" },
+                    { time: "20:45", desc: "行夜市：巴東夜市 & 孟加拉路酒吧街 (Bangla Road)" },
+                    { time: "22:15", desc: "返回 Villa" }
+                ],
+                images: ["1oGUJB_vZ_Sl63lJtO0_GCYSdFmMF4ru7", "1OKvQjYukkQ4bgO_yfafYVb_rm2hBQV0k", "1yMAiIQlBmM7PNfx3T2vXOXlQWVrm3n2k"]
+            },
+            {
+                day: "Day 2", date: "8月23日 (星期五)", title: "各自精彩與別墅豪華大合體",
+                events: [
+                    { time: "上午", desc: "【留守組】睡到自然醒，享受Villa私人泳池。午餐可步行至 Boat Avenue" },
+                    { time: "11:00", desc: "【衝刺組】抵達布吉機場，第二輛包車接機" },
+                    { time: "12:30", desc: "【衝刺組】午餐：One Chun Cafe (連7年米芝蓮) + 阿蓬椰奶糕" },
+                    { time: "14:30", desc: "【衝刺組】Central Phuket Floresta 商場：水族館 & Shopping" },
+                    { time: "17:45", desc: "【全員大合體】於 Villa 集合" },
+                    { time: "18:00", desc: "晚餐：Villa 私廚海鮮晚宴 (Private Chef) - 池畔大餐" },
+                    { time: "20:00", desc: "行夜市：布吉老街週末夜市 (Lard Yai)" },
+                    { time: "21:45", desc: "宵夜：Go Benz Rice Porridge (高文排骨飯 - 米芝蓮必比登)" },
+                    { time: "22:45", desc: "全員回 Villa" }
+                ],
+                images: ["1DIyJsQAqPwygF6i96yoaQNKwc5bFJRd2", "1ZmZIDkVZBJcT_q_XE-aImgnKKrlN6TWL", "1XVGXuBbgK7rFlYwDXsnB_p3-XbIh0hTd", "1SCKl6yGQU_cvNFB7MK_o72PCtTMGNeUJ"]
+            },
+            {
+                day: "Day 3", date: "8月24日 (星期六)", title: "全日豪華出海與拉威海鮮",
+                events: [
+                    { time: "08:45", desc: "從 Villa 出發前往南部 Chalong Pier" },
+                    { time: "10:00-18:30", desc: "包船遊船河 / 出海釣魚：15人包雙體帆船，浮潛、玩水、海釣" },
+                    { time: "19:00", desc: "晚餐：拉威海鮮市場 (Rawai Seafood Market) - 現挑現煮生猛海鮮" },
+                    { time: "20:30", desc: "行夜市：Kata Night Market (卡塔夜市)" },
+                    { time: "21:30", desc: "按摩：卡塔區60分鐘腳底/曬後舒緩按摩" },
+                    { time: "22:30", desc: "返回 Villa" }
+                ],
+                images: ["119elMkZsIb4uEASCGjGrrHPK0sl0Dvhy", "1DQyw1NSk5PmI-neWTb_1CgVlN-nXm8MJ", "1_zamd9f47FHJArQPhgqMyLbTCmEZT-ue"]
+            },
+            {
+                day: "Day 4", date: "8月25日 (星期日)", title: "海陸空極限挑戰、別墅午宴與幻多奇",
+                events: [
+                    { time: "09:00", desc: "從 Villa 出發前往 Hanuman World" },
+                    { time: "09:45", desc: "Zipline 叢林飛躍 + ATV越野車" },
+                    { time: "13:15", desc: "返回 Villa 洗澡梳洗" },
+                    { time: "14:00", desc: "午餐：Villa 私廚豪華午餐 (Private Chef) - 享用昨日釣到的魚" },
+                    { time: "16:00", desc: "下午自由活動 / 休息充電" },
+                    { time: "17:30", desc: "前往 幻多奇樂園 (Phuket FantaSea)，開園即入" },
+                    { time: "18:30", desc: "晚餐：「金娜里皇家雅宴」享用自助晚餐" },
+                    { time: "21:00", desc: "看秀：史詩級表演 (約75分鐘)" },
+                    { time: "22:30", desc: "返回 Villa" }
+                ],
+                images: ["1hShoroCzrjHBNbW-ydrEq4vTfLwf4VXL", "1iELRz6gGIh-rL3AZ8FpkvSu-zvYEqVSk"]
+            },
+            {
+                day: "Day 5", date: "8月26日 (星期一)", title: "最後美食衝刺與返程",
+                events: [
+                    { time: "11:00", desc: "Villa Check-out 退房" },
+                    { time: "12:00", desc: "午餐：Toy-tor-toe - 隱藏版必吃，滿滿蟹肉炒飯" },
+                    { time: "13:30", desc: "伴手禮最後採買 (Supercheap 或特產工廠)" },
+                    { time: "15:30", desc: "Mai Khao Beach (邁考海灘看飛機)" },
+                    { time: "16:30", desc: "抵達布吉機場，準備搭乘 19:00 晚機回程" }
+                ],
+                images: ["165xizrY4lSVNbGxvyssXKiMlewK8Dw67"]
+            }
+        ];
+
+        const RESTAURANTS = [
+            {
+                day: "Day 1", time: "午餐", name: "Kin Dee Restaurant", tags: ["米芝蓮必比登", "泰南菜"],
+                desc: "隱身紅樹林旁的傳統泰南菜，做為布吉的第一餐非常完美！老闆堅持使用布吉當地的香料和傳統手法烹調，菜色精緻且極具地方特色，環境清幽貼近大自然。\n\n💡 必點推薦：泰南黃咖哩、炸沙鯪魚(連骨頭都能吃)、黑蟹/紅樹林蟹料理。",
+                images: ["https://drive.google.com/thumbnail?id=1oGUJB_vZ_Sl63lJtO0_GCYSdFmMF4ru7&sz=w800", "https://drive.google.com/thumbnail?id=1u1MhY9cS1xiQ_YumtUtbJMBr5IfYlxqo&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 2", time: "午餐", name: "One Chun Cafe n' Restaurant", tags: ["連續7年米芝蓮", "老城區"],
+                desc: "布吉鎮最出名的復古泰餐廳！「One Chun」在泰文中是「星期一」的意思。餐廳位於一棟充滿中葡風格的百年老建築內，裝潢擺滿了古董鐘錶、舊電視和復古打字機，氣氛絕佳。\n\n💡 必點推薦：蟹肉椰汁咖哩配米粉(鎮店之寶，滿滿鮮甜蟹肉)、泰南古法扣肉(入口即化)。",
+                images: ["https://drive.google.com/thumbnail?id=1DIyJsQAqPwygF6i96yoaQNKwc5bFJRd2&sz=w800", "https://drive.google.com/thumbnail?id=1IMnmtvlx2LNjjucpraenDq3XzIjOBvaL&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1548943487-a2e4d43b485d?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 2", time: "甜點", name: "A Pong Mae Sunee", tags: ["街頭小吃", "老奶奶古早味"],
+                desc: "米芝蓮推薦的街頭小吃！傳承數十年的古早味甜點推車，隱身在老街巷弄裡，老奶奶用小炭爐和鐵鍋慢火烤製。\n\n💡 必點推薦：阿蓬椰奶蛋烘糕 (Ahpong)。外圈像餅乾一樣薄脆，中心保留軟糯口感，滿滿椰奶與米香。",
+                image: "https://drive.google.com/thumbnail?id=1R82HHKvozpjbuQVFu9kf2UrTd9OZCGuE&sz=w800",
+                fallback: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 2", time: "宵夜", name: "Go Benz Rice Porridge", tags: ["米芝蓮必比登", "深夜食堂"],
+                desc: "布吉最傳奇的深夜食堂、排隊名店！這是一家只在晚上營業的半露天大排檔，當地人與遊客都為之瘋狂。湯頭充滿濃郁的胡椒香，喝下去非常暖胃解酒。\n\n💡 必點推薦：排骨乾泡飯 (Khao Tom Haeng，鋪滿脆皮燒肉排骨內臟)、脆皮燒肉。",
+                images: ["https://drive.google.com/thumbnail?id=1-7i-waZlT-bS-eZCZSh2M2YvQpvE575X&sz=w800", "https://drive.google.com/thumbnail?id=1zY0GQP0bHZjhowG2IDZ5LKZWOsaMbLzd&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 3", time: "晚餐", name: "Rawai Seafood Market", tags: ["拉威海鮮市場", "代客加工"],
+                desc: "現挑現煮的生猛海鮮代客加工街！左邊是當地漁民擺攤賣的新鮮活海鮮，右邊則是一整排的代客加工餐廳(如名氣最大的 Mook Dee)。\n\n💡 必點推薦：蒜蓉牛油烤龍蝦、椒鹽瀨尿蝦(挑手臂粗的那種)、咖哩炒蟹。",
+                images: ["https://drive.google.com/thumbnail?id=1DQyw1NSk5PmI-neWTb_1CgVlN-nXm8MJ&sz=w800", "https://drive.google.com/thumbnail?id=14Vp70KRWVXwpSIBrRsfLDlkzq3FNLvsj&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1626015250917-fae3fbf26b38?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 5", time: "午餐", name: "Toy-tor-toe", tags: ["在地隱藏版", "高CP值"],
+                desc: "返程前的驚喜！低調但實力驚人的街邊小店，是在地老饕的私藏名單。價格親民，給料卻毫不手軟，CP值極高。\n\n💡 必點推薦：蟹肉炒飯(鋪滿真材實料的蟹肉，不用自己剝殼)、酸辣蝦湯米粉。",
+                images: ["https://drive.google.com/thumbnail?id=165xizrY4lSVNbGxvyssXKiMlewK8Dw67&sz=w800", "https://drive.google.com/thumbnail?id=15qAeCFlf7LDHcuLXubuAwlFE_oSP9--c&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?auto=format&fit=crop&q=80&w=800"
+            }
+        ];
+
+        const ATTRACTIONS = [
+            {
+                day: "Day 2", time: "晚上", name: "布吉老街週末夜市 (Lard Yai)", tags: ["週日限定", "文青吃貨", "老城區"],
+                desc: "景點定位：週日限定！文青與吃貨的完美結合。\n\n環境與特色：位於布吉鎮老城區 (Old Town)。這條街平時車水馬龍，但到了週日傍晚，整條他朗路 (Thalang Road) 會完全封街，兩旁的彩色中葡式百年建築點起燈光，氣氛浪漫又熱鬧。\n\n亮點與必玩：這裡的攤位比一般夜市更有質感。您可以找到手作工藝品、文創明信片、街頭藝術家表演，還有無數道地的泰南小吃和特色調酒。\n\n💡 15人團貼士：夜市非常長且人潮眾多，建議大家約定一個明確的集合時間和地點（例如某個明顯的路口或咖啡廳），然後解散各自尋寶。",
+                images: ["https://drive.google.com/thumbnail?id=1SCKl6yGQU_cvNFB7MK_o72PCtTMGNeUJ&sz=w800", "https://drive.google.com/thumbnail?id=17FuryZ8e-58mfQ7OXKMQQ0gFrGuYzAFo&sz=w800", "https://drive.google.com/thumbnail?id=1y9N7ypI2thqQkBDJ0LkFGWfhnqPVtBzs&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 1", time: "晚上", name: "巴東孟加拉路酒吧街 (Bangla Road)", tags: ["夜生活", "狂野派對", "步行街"],
+                desc: "景點定位：體驗布吉島最狂野的夜生活。\n\n環境與特色：白天看起來普普通通的街道，一到晚上就會變成封街的步行區。整條街霓虹燈閃爍，音樂震耳欲聾，兩旁全是開放式酒吧、鋼管舞俱樂部和街頭表演。\n\n亮點與必玩：即使不喝酒進夜店，光是在這條街上散步，看著來自世界各地的遊客、變裝皇后和魔術師，本身就是一種極具視覺衝擊的娛樂體驗。\n\n💡 15人團貼士：這裡人多擁擠且氣氛較為成人，帶小朋友的團員建議走馬看花感受一下氣氛即可，不用停留太久。",
+                images: ["https://drive.google.com/thumbnail?id=1yMAiIQlBmM7PNfx3T2vXOXlQWVrm3n2k&sz=w800", "https://drive.google.com/thumbnail?id=1PS_xeTo428ecbIpnzZytFfVH_gi3WyK1&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1566412122606-d5f0bdf2afb3?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 3", time: "晚上", name: "卡塔夜市 (Kata Night Market)", tags: ["日常夜市", "接地氣", "順路必訪"],
+                desc: "景點定位：規模適中、接地氣的日常夜市。\n\n環境與特色：相較於週末老街或巴東的喧鬧，Kata 夜市顯得更加親民與日常，且每天都有營業。這裡的動線規劃得不錯，逛起來不會覺得太擁擠。\n\n亮點與必玩：非常適合買新鮮水果打成的冰沙 (Fruit Shake)、香蕉煎餅 (Roti) 或泰式烤肉串。\n\n💡 15人團貼士：這個夜市剛好位於你們出海後從最南部回 Villa 的順路上，做為吃完海鮮大餐後的散步點非常完美。",
+                images: ["https://drive.google.com/thumbnail?id=1_zamd9f47FHJArQPhgqMyLbTCmEZT-ue&sz=w800", "https://drive.google.com/thumbnail?id=1rydxt_f53V7PbMo6IQBkGeu6maG1lPzI&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1533619043865-1c2e1f427d5c?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 2", time: "下午", name: "Central Phuket Floresta 商場", tags: ["頂級商場", "避暑勝地", "血拼"],
+                desc: "景點定位：布吉島最豪華的頂級避暑/血拼勝地。\n\n環境與特色：這不是普通的商場，而是布吉島上規模最大、最具設計感的購物中心。Floresta 這一區主打高端奢侈品與免稅購物，室內設計融合了大量的自然、熱帶與泰國神話元素，冷氣極度強烈，是逃離布吉酷熱天氣的完美綠洲。\n\n亮點與必玩：\n• Tribhum (三界奇幻世界) 外觀打卡：雖然裡面的主題樂園可能需要付費，但商場中庭和各個角落都有許多華麗的巨型神話雕塑與造景，拍照非常好看。\n• Central Food Hall (頂級超市)：位於地下樓層，這裡的生鮮和進口食品非常齊全。這也是私廚採買高檔食材的絕佳地點。\n• 多元餐飲選擇：如果不想吃正餐，這裡有非常多精緻的泰式奶茶店、甜點店與咖啡館可供休息。\n\n💡 15人團貼士：商場佔地極廣，分為 Festival（平價區）和 Floresta（高端區）兩棟，中間有天橋連接。建議大家解散前，明確約定在 Floresta 區的 Aquaria 水族館入口處或某個明顯的咖啡廳集合，以免迷路。",
+                images: ["https://drive.google.com/thumbnail?id=1ZmZIDkVZBJcT_q_XE-aImgnKKrlN6TWL&sz=w800", "https://drive.google.com/thumbnail?id=1BuYEUt1dgIjAYkzaVNsy7it9LYEyehTV&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1614088801964-0751e2a0572e?auto=format&fit=crop&q=80&w=800"
+            }
+        ];
+
+        const PAID_ACTIVITIES = [
+            {
+                day: "Day 3", time: "全日", name: "全日包雙體帆船出海與海釣 (HongXi 雙體帆船)", tags: ["尊榮私密", "跳島浮潛", "海釣BBQ"],
+                desc: "活動定位：尊榮私密的海上派對、全行程最豪華亮點。\n\n環境與特色：10:00 - 18:30 從查龍碼頭出發。專屬 15 人的雙體帆船，船上配備藍牙音響、BBQ烤爐、super槳板和各類水上玩具，獨享私密的海上度假時光。\n\n行程亮點與時間線：\n• 10:00 查龍碼頭出發\n• 10:40【珊瑚島浮潛】探索清澈海水與熱帶小魚。\n• 13:00 在船上享用午餐\n• 14:00【皇帝島跳島與海釣】隨後前往專屬釣魚點進行拖釣與手線海釣，釣到的魚獲可帶回別墅加菜！\n• 18:30 伴隨海上日落安全抵達碼頭。\n\n💰 費用參考：基本包船費人民幣 4,800 元/8小時 (含裝備、飲料點心與接送)。現場需自理皇帝島接駁船(約฿1000-1500)與珊瑚島登島費。\n\n💡 15人團貼士：可詢問船公司能否在船上直接烤釣到的魚。請帶齊防曬、墨鏡、泳衣及暈船藥。這家船公司設備非常齊全，性價比極高！",
+                images: ["https://drive.google.com/thumbnail?id=119elMkZsIb4uEASCGjGrrHPK0sl0Dvhy&sz=w800", "https://drive.google.com/thumbnail?id=1ydqEemXSMU6ydyXub69-9gjVMZu3LV9l&sz=w800", "https://drive.google.com/thumbnail?id=1SUnH4zCbsFx6I60r0uLrTi3OjlDvcQ55&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 4", time: "上午", name: "ATV 越野車與叢林飛索體驗 (含大佛參觀)", tags: ["極限挑戰", "叢林飛躍", "大佛地標"],
+                desc: "活動定位：海陸空極限挑戰與文化觀光完美結合。\n\n環境與特色：位於大佛山區，有茂密的熱帶叢林與極佳的登高視野。提供專業教練指導，新手老手都能安心遊玩。\n\n行程亮點：\n• ATV 越野探險：駕駛動力強勁的 200cc 全地形車，挑戰泥濘叢林！\n• Zipline 叢林飛索：穿戴專業裝備，在樹梢之間享受泰山般的飛行體驗。\n• 參觀布吉大佛：越野路線會途經布吉島最著名的地標，俯瞰絕美海岸線。\n\n💡 15人團貼士：建議選擇 Klook 的「1小時 ATV + 18站飛索 + 大佛參觀」方案(約2.5小時)。ATV 會有泥濘噴濺，請穿不怕髒的深色衣物與包鞋。參觀大佛請隨身攜帶薄外套遮蔽。結束後給熱心幫忙拍照的教練一點小費 (約฿100) 會讓他們很開心。",
+                images: ["https://drive.google.com/thumbnail?id=1hShoroCzrjHBNbW-ydrEq4vTfLwf4VXL&sz=w800", "https://drive.google.com/thumbnail?id=1vKuxvI_zTJHJWSyvFzAYH6QIOyYy4oSb&sz=w800", "https://drive.google.com/thumbnail?id=1y8UfhoBVP_B2jxCKT-BRYr1mB1wxUA3B&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1596406988894-399fb05b0d00?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 4", time: "晚上", name: "幻多奇樂園 (Phuket FantaSea)", tags: ["主題樂園", "史詩大秀", "自助晚宴"],
+                desc: "活動定位：泰國最大的夜間文化主題樂園、視覺震撼之旅。\n\n環境與特色：這是一個結合了泰國神話、嘉年華氛圍的超大型夜間園區。到處都是閃爍的霓虹燈、大象雕像和傳統泰式建築，拍照效果極佳。\n\n亮點與必玩：\n• 金娜里皇家雅宴自助餐：在可容納四千人、金碧輝煌的水上宮殿裡用餐。\n• 夢幻王國大秀 (21:00)：在「象王宮殿劇場」內，結合了魔術、雜技、煙火以及數十頭大象同台演出的史詩級表演。\n\n💡 15人團貼士：進劇場看秀前，所有手機和相機都必須強制寄存（園區有完善的寄存系統），表演過程中絕對禁止拍攝。",
+                images: ["https://drive.google.com/thumbnail?id=1iELRz6gGIh-rL3AZ8FpkvSu-zvYEqVSk&sz=w800", "https://drive.google.com/thumbnail?id=1RwBKntpfHjQdN2B2AuE9UPRVSwfaVfLz&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1510526732386-b4819e9de06c?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 2", time: "下午", name: "Aquaria Phuket (布吉水族館)", tags: ["最大水族館", "室內避暑", "企鵝餵食"],
+                desc: "活動定位：泰國最大室內水族館、小孩放電天堂。\n\n環境與特色：隱身在 Central Phuket Floresta 商場地下室，環境舒適冷氣強，是躲避布吉島午後雷陣雨或酷熱太陽的完美去處。\n\n亮點與必玩：擁有超過兩萬種海洋生物。千萬別錯過定時的美人魚表演以及超萌的企鵝餵食秀，小朋友保證看得目不轉睛。\n\n💡 15人團貼士：建議將 15 人兵分兩路，想逛街買名牌的大人留在商場血拼，其他人帶小孩進水族館，兩小時後在商場大廳會合最有效率。",
+                images: ["https://drive.google.com/thumbnail?id=1E7sQcsSY2RcqsNcjv_cv8ZJdOyoCzBoE&sz=w800", "https://drive.google.com/thumbnail?id=1yR73boP1_v5KhEuBydetwxYwZmdv8syD&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1572944745199-4c125df967fc?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                day: "Day 1", time: "晚上", name: "Let's Relax Spa", tags: ["頂級連鎖SPA", "泰式古法", "需提早預約"],
+                desc: "活動定位：泰國最知名、高品質保證的連鎖舒壓按摩。\n\n環境與特色：相較於街邊小店，這裡提供飯店等級的環境、輕柔音樂、專業訓練的芳療師，以及極度舒適的冷氣。結束後通常會附上熱茶和泰國名產「芒果糯米飯」或小餅乾。\n\n亮點與必試：\n• 泰式古法按摩：適合喜歡力道大、想徹底鬆開筋骨的人。\n• 腳底按摩：適合走了一整天後恢復體力。\n\n💡 15人團貼士：由於品牌名氣大且生意極好，12 位大人要「同時段」按摩，絕對不可能現場直接 walk-in。請務必在出發前 2 至 3 週，透過官網或請管家協助完成集體預約並支付訂金。",
+                images: ["https://drive.google.com/thumbnail?id=1OKvQjYukkQ4bgO_yfafYVb_rm2hBQV0k&sz=w800", "https://drive.google.com/thumbnail?id=15BV_IQCGVkFONIAGQNUA5XahnvFMzLh5&sz=w800"],
+                fallback: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=800"
+            }
+        ];
+
+        const MENU_IMAGES = [
+            "1XVGXuBbgK7rFlYwDXsnB_p3-XbIh0hTd",
+            "1aRILDEsUM-yBNC45Hl6un02300TvYlLS",
+            "18tgCHJpDRGn0-zzNmkHdV5rS3Gw6ASxb",
+            "1j9npnNFXPGp8rba_FxwB7miiahmJK9GR",
+            "1rXp2s9gx6zZS0d8N3J3b2NnisOXgTBuk",
+            "1DecGYQOtyfjAGIK6Ip-PNJblVnU9TbjL"
+        ];
+
+        const VILLA_IMAGES = [
+            "1zV7due8HVrY6KpcfVtjvMGk5WPMAFrTr",
+            "1J_Ljydcfwae7RlMhQZvkRLq7n786snyR"
+        ];
+
+        // --- Render Functions ---
+
+        function renderTabs() {
+            const container = document.getElementById('tab-buttons');
+            container.innerHTML = TABS.map(tab => `
+                <button
+                    id="btn-${tab.id}"
+                    onclick="switchTab('${tab.id}')"
+                    class="flex-shrink-0 flex items-center px-4 py-4 md:px-6 text-sm md:text-base font-medium transition-colors border-b-2 whitespace-nowrap border-transparent text-slate-500 hover:text-teal-500 hover:bg-slate-50"
+                >
+                    <i data-lucide="${tab.icon}" class="w-[18px] h-[18px] mr-2"></i>
+                    ${tab.label}
+                </button>
+            `).join('');
+        }
+
+        function renderFlights() {
+            const container = document.getElementById('flights-container');
+            container.innerHTML = FLIGHTS.map(f => `
+                <div class="rounded-xl p-5 border border-white/50 shadow-sm ${f.color}">
+                    <div class="flex items-center mb-3">
+                        <i data-lucide="${f.icon}" class="w-5 h-5 mr-2 opacity-80"></i>
+                        <h3 class="font-bold text-lg">${f.title}</h3>
+                    </div>
+                    <div class="space-y-2 text-sm md:text-base">
+                        <p class="flex items-start">
+                            <i data-lucide="clock" class="w-4 h-4 mr-2 mt-0.5 opacity-70 shrink-0"></i>
+                            <span class="font-medium">${f.flight}</span>
+                        </p>
+                        <p class="flex items-start">
+                            <i data-lucide="users" class="w-4 h-4 mr-2 mt-0.5 opacity-70 shrink-0"></i>
+                            <span>${f.people}</span>
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderVillaImages() {
+            const container = document.getElementById('villa-images-container');
+            container.innerHTML = VILLA_IMAGES.map((id, idx) => `
+                <img 
+                    src="https://drive.google.com/thumbnail?id=${id}&sz=w1200" 
+                    alt="Villa Photo ${idx + 1}" 
+                    class="w-full h-48 md:h-64 object-cover"
+                />
+            `).join('');
+        }
+
+        function renderItinerary() {
+            const container = document.getElementById('itinerary-container');
+            container.innerHTML = ITINERARY.map((day, idx) => `
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-teal-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                        <span class="font-bold text-sm">${idx + 1}</span>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 md:p-6 rounded-2xl border border-slate-100 bg-white shadow-sm transition hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-teal-600 font-bold text-sm">${day.date}</span>
+                            <span class="bg-teal-50 text-teal-700 text-xs px-2 py-1 rounded font-medium">${day.day}</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-4 text-slate-800">${day.title}</h3>
+                        <div class="space-y-3">
+                            ${day.events.map(event => `
+                                <div class="flex text-sm text-slate-600 items-start">
+                                    <span class="w-14 shrink-0 font-medium text-slate-400 mt-0.5">${event.time}</span>
+                                    <span class="flex-1 leading-snug">${event.desc}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        ${day.images ? `
+                            <div class="mt-5 pt-4 border-t border-slate-100">
+                                <div class="flex gap-3 overflow-x-auto pb-2 snap-x hide-scrollbar">
+                                    ${day.images.map(imgId => `
+                                        <img 
+                                            src="https://drive.google.com/thumbnail?id=${imgId}&sz=w400" 
+                                            alt="Highlights" 
+                                            class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover shrink-0 snap-center shadow-sm border border-slate-200"
+                                        />
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderGenericCards(dataArray, containerId, badgeColorClass) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                ${dataArray.map(item => `
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 group flex flex-col">
+                        <div class="h-56 overflow-hidden relative flex shrink-0">
+                            ${item.images ? 
+                                item.images.map(imgUrl => `
+                                    <img src="${imgUrl}" alt="${item.name}" class="flex-1 min-w-0 h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='${item.fallback}';">
+                                `).join('') 
+                                : 
+                                `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='${item.fallback}';">`
+                            }
+                            
+                            <div class="absolute top-3 left-3 flex gap-2 z-10 flex-wrap pr-10">
+                                ${item.tags.map(tag => `
+                                    <span class="bg-black/60 backdrop-blur-md text-white text-xs px-2 py-1 rounded-full border border-white/20 shadow-sm">${tag}</span>
+                                `).join('')}
+                            </div>
+
+                            <div class="absolute bottom-3 right-3 z-10">
+                                <span class="${badgeColorClass} backdrop-blur-md text-white font-bold text-sm px-3 py-1.5 rounded-lg shadow-md border">
+                                    ${item.day} · ${item.time}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="p-5 flex-1 bg-white">
+                            <h3 class="font-bold text-xl text-teal-900 mb-3">${item.name}</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-line">${item.desc}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>`;
+        }
+
+        function renderMenuGallery() {
+            const container = document.getElementById('menu-gallery');
+            container.innerHTML = MENU_IMAGES.map((id, idx) => `
+                <div class="rounded-xl overflow-hidden shadow-sm border border-slate-100 aspect-square group bg-slate-50">
+                    <img 
+                        src="https://drive.google.com/thumbnail?id=${id}&sz=w800" 
+                        alt="Private Chef Dish ${idx + 1}" 
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                </div>
+            `).join('');
+        }
+
+        // --- Tab Switching Logic ---
+        function switchTab(activeId) {
+            TABS.forEach(tab => {
+                const btn = document.getElementById(`btn-${tab.id}`);
+                const content = document.getElementById(`tab-${tab.id}`);
+                
+                if (tab.id === activeId) {
+                    btn.classList.add('border-teal-500', 'text-teal-600');
+                    btn.classList.remove('border-transparent', 'text-slate-500');
+                    content.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('border-teal-500', 'text-teal-600');
+                    btn.classList.add('border-transparent', 'text-slate-500');
+                    content.classList.add('hidden');
+                }
+            });
+            // Re-run icon initialization in case new content has icons
+            lucide.createIcons();
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTabs();
+            renderFlights();
+            renderVillaImages();
+            renderItinerary();
+            renderGenericCards(RESTAURANTS, 'food-container', 'bg-teal-500/90 border-teal-400');
+            renderGenericCards(ATTRACTIONS, 'attractions-container', 'bg-orange-500/90 border-orange-400');
+            renderGenericCards(PAID_ACTIVITIES, 'paid-activities-container', 'bg-indigo-500/90 border-indigo-400');
+            renderMenuGallery();
+            
+            // 預設選擇第一個分頁
+            switchTab('overview');
+        });
+    </script>
+</body>
+</html>
