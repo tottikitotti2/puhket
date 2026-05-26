@@ -57,8 +57,8 @@
     </div>
 
     <!-- Navigation Tabs -->
-    <div class="sticky top-0 z-50 bg-white shadow-md overflow-x-auto">
-        <div class="flex w-full max-w-4xl mx-auto px-2" id="tab-buttons">
+    <div class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="flex flex-wrap w-full max-w-4xl mx-auto" id="tab-buttons">
             <!-- 按鈕由 JS 生成 -->
         </div>
     </div>
@@ -330,15 +330,15 @@
         ];
 
         const FLIGHTS = [
-            { title: "8月22日 (四) - 第一批抵達", flight: "07:55 - 10:30 (UO724)", people: "棋、卿、卿妹、黃詩澄、老豆、慧堅、小微 (共8人)", icon: "plane", color: "bg-blue-100 text-blue-700" },
-            { title: "8月23日 (五) - 第二批抵達", flight: "07:55 - 10:30 (UO724)", people: "明仔、Kim、匡承、姐姐 (共5人)", icon: "plane", color: "bg-indigo-100 text-indigo-700" },
-            { title: "8月25日 (日) - 小微提早回程", flight: "09:00 前往機場", people: "小微", icon: "plane", color: "bg-orange-100 text-orange-700" },
-            { title: "8月26日 (一) - 大隊回程", flight: "17:00 前往機場 (19:00 - 00:00 UO795)", people: "棋、卿、卿妹、黃詩澄、老豆、慧堅 (等共7人)", icon: "plane", color: "bg-teal-100 text-teal-700" }
+            { title: "8月22日 (六) - 第一批抵達", flight: "07:55 - 10:30 (UO724)", people: "棋、卿、卿妹、黃詩澄、老豆、慧、堅、小微、詩敏 (共9人)", icon: "plane", color: "bg-blue-100 text-blue-700" },
+            { title: "8月23日 (日) - 第二批抵達", flight: "07:55 - 10:30 (UO724)", people: "明仔、Kim、匡、承、姐姐 (共5人)", icon: "plane", color: "bg-indigo-100 text-indigo-700" },
+            { title: "8月25日 (二) - 小微提早回程", flight: "09:00 前往機場", people: "小微", icon: "plane", color: "bg-orange-100 text-orange-700" },
+            { title: "8月26日 (三) - 大隊回程", flight: "17:00 前往機場 (19:00 - 00:00 UO795)", people: "棋、卿、卿妹、黃詩澄、老豆、慧、堅、詩敏 (共8人)", icon: "plane", color: "bg-teal-100 text-teal-700" }
         ];
 
         const ITINERARY = [
             {
-                day: "Day 1", date: "8月22日 (星期四)", title: "第一批抵達、物資採買與巴東夜生活",
+                day: "Day 1", date: "8月22日 (星期六)", title: "第一批抵達、物資採買與巴東夜生活",
                 events: [
                     { time: "11:00", desc: "抵達布吉機場，辦理入境與拿行李" },
                     { time: "12:00", desc: "午餐：Kin Dee Restaurant (米芝蓮必比登) - 隱身紅樹林旁的傳統泰南菜" },
@@ -352,7 +352,7 @@
                 images: ["1oGUJB_vZ_Sl63lJtO0_GCYSdFmMF4ru7", "1OKvQjYukkQ4bgO_yfafYVb_rm2hBQV0k", "1yMAiIQlBmM7PNfx3T2vXOXlQWVrm3n2k"]
             },
             {
-                day: "Day 2", date: "8月23日 (星期五)", title: "各自精彩與別墅豪華大合體",
+                day: "Day 2", date: "8月23日 (星期日)", title: "各自精彩與別墅豪華大合體",
                 events: [
                     { time: "上午", desc: "【留守組】睡到自然醒，享受Villa私人泳池。午餐可步行至 Boat Avenue" },
                     { time: "11:00", desc: "【衝刺組】抵達布吉機場，第二輛包車接機" },
@@ -367,7 +367,7 @@
                 images: ["1DIyJsQAqPwygF6i96yoaQNKwc5bFJRd2", "1ZmZIDkVZBJcT_q_XE-aImgnKKrlN6TWL", "1XVGXuBbgK7rFlYwDXsnB_p3-XbIh0hTd", "1SCKl6yGQU_cvNFB7MK_o72PCtTMGNeUJ"]
             },
             {
-                day: "Day 3", date: "8月24日 (星期六)", title: "全日豪華出海與拉威海鮮",
+                day: "Day 3", date: "8月24日 (星期一)", title: "全日豪華出海與拉威海鮮",
                 events: [
                     { time: "08:45", desc: "從 Villa 出發前往南部 Chalong Pier" },
                     { time: "10:00-18:30", desc: "包船遊船河 / 出海釣魚：15人包雙體帆船，浮潛、玩水、海釣" },
@@ -379,7 +379,7 @@
                 images: ["119elMkZsIb4uEASCGjGrrHPK0sl0Dvhy", "1DQyw1NSk5PmI-neWTb_1CgVlN-nXm8MJ", "1_zamd9f47FHJArQPhgqMyLbTCmEZT-ue"]
             },
             {
-                day: "Day 4", date: "8月25日 (星期日)", title: "海陸空極限挑戰、別墅午宴與幻多奇",
+                day: "Day 4", date: "8月25日 (星期二)", title: "海陸空極限挑戰、別墅午宴與幻多奇",
                 events: [
                     { time: "09:00", desc: "從 Villa 出發前往 Hanuman World" },
                     { time: "09:45", desc: "Zipline 叢林飛躍 + ATV越野車" },
@@ -394,7 +394,7 @@
                 images: ["1hShoroCzrjHBNbW-ydrEq4vTfLwf4VXL", "1iELRz6gGIh-rL3AZ8FpkvSu-zvYEqVSk"]
             },
             {
-                day: "Day 5", date: "8月26日 (星期一)", title: "最後美食衝刺與返程",
+                day: "Day 5", date: "8月26日 (星期三)", title: "最後美食衝刺與返程",
                 events: [
                     { time: "11:00", desc: "Villa Check-out 退房" },
                     { time: "12:00", desc: "午餐：Toy-tor-toe - 隱藏版必吃，滿滿蟹肉炒飯" },
@@ -527,10 +527,10 @@
                 <button
                     id="btn-${tab.id}"
                     onclick="switchTab('${tab.id}')"
-                    class="flex-shrink-0 flex items-center px-4 py-4 md:px-6 text-sm md:text-base font-medium transition-colors border-b-2 whitespace-nowrap border-transparent text-slate-500 hover:text-teal-500 hover:bg-slate-50"
+                    class="grow basis-[25%] md:flex-1 flex flex-col md:flex-row items-center justify-center py-2.5 md:py-4 text-[12px] md:text-sm lg:text-base font-medium transition-colors border-b-2 border-transparent text-slate-500 hover:text-teal-500 hover:bg-slate-50"
                 >
-                    <i data-lucide="${tab.icon}" class="w-[18px] h-[18px] mr-2"></i>
-                    ${tab.label}
+                    <i data-lucide="${tab.icon}" class="w-5 h-5 md:w-[18px] md:h-[18px] mb-1 md:mb-0 md:mr-2 shrink-0"></i>
+                    <span class="whitespace-nowrap tracking-tight">${tab.label}</span>
                 </button>
             `).join('');
         }
